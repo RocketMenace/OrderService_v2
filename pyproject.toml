@@ -36,4 +36,10 @@ select = [
 quote-style = "double"
 indent-style = "space"
 
-
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["slow"]
+addopts = "-m 'not slow'"
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+filterwarnings = []
