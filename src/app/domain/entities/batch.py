@@ -1,5 +1,5 @@
 from datetime import date
-from typing import Any
+from typing import Any, Self
 
 from app.domain.value_objects.batch_id import BatchID
 from app.domain.value_objects.order_line import OrderLine
@@ -24,6 +24,13 @@ class Batch:
         if key == "reference" and getattr(self, "reference", None) is not None:
             raise AttributeError("Changing entity ID is not permitted")
         object.__setattr__(self, key, value)
+
+    def __gt__(self, other: Self) -> bool:
+        if self.eta is None:
+            return False
+        if other.eta is None:
+            return True
+        return self.eta > other.eta
 
     async def allocate(self, *, line: OrderLine) -> None:
         if await self.can_allocate(line=line):

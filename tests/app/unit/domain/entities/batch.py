@@ -3,7 +3,6 @@ from uuid import uuid4
 import pytest
 
 from app.domain.value_objects.order_line import OrderLine
-from tests.app.unit.domain.entities.conftest import make_valid_batch_and_line
 
 
 @pytest.mark.asyncio
