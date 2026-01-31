@@ -1,12 +1,16 @@
 from typing import AsyncGenerator
 
 from app.domain.entities.batch import Batch
+from app.domain.exceptions.batch import OutOfStockError
 from app.domain.value_objects import BatchID, OrderLine
 
 
 class BatchService:
     async def allocate(self, *, line: OrderLine, batches: list[Batch]) -> BatchID:
-        batch = await anext(self._find_batches(line=line, batches=batches))
+        try:
+            batch = await anext(self._find_batches(line=line, batches=batches))
+        except StopAsyncIteration:
+            raise OutOfStockError(sku=line.sku)
         await batch.allocate(line=line)
         return batch.reference
 
