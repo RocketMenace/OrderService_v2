@@ -44,3 +44,26 @@ async def make_shipping_batch_in_two_days() -> Batch:
         qty=10,
         eta=date.today() + timedelta(days=2),
     )
+
+
+@pytest_asyncio.fixture(scope="function")
+async def make_line() -> OrderLine:
+    return OrderLine(
+        order_id="2993108d-5106-4e93-a5c6-b2557a307b81",
+        sku="UNCOMFORTABLE-CHAIR",
+        qty=5,
+    )
+
+
+@pytest_asyncio.fixture(scope="function")
+async def make_equal_batch_and_line() -> tuple[Batch, OrderLine]:
+    return Batch(
+        reference=BatchID(),
+        sku="UNCOMFORTABLE-CHAIR",
+        qty=5,
+        eta=date.today(),
+    ), OrderLine(
+        order_id="2993108d-5106-4e93-a5c6-b2557a307b80",
+        sku="UNCOMFORTABLE-CHAIR",
+        qty=5,
+    )

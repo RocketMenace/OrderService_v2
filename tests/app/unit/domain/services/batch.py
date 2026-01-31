@@ -1,5 +1,7 @@
 import pytest
 
+from app.domain.exceptions.batch import OutOfStockError
+
 
 @pytest.mark.asyncio
 async def test_prefers_current_stock_batches_to_shipments(
@@ -50,3 +52,27 @@ async def test_returns_allocated_batch_ref(
         batches=[in_stock_batch, shipment_batch],
     )
     assert allocation == in_stock_batch.reference
+
+
+@pytest.mark.asyncio
+async def test_raises_out_of_stock_exception_if_cannot_allocate(
+    make_equal_batch_and_line,
+    make_domain_service,
+    make_line,
+):
+    service = make_domain_service
+    batch, line = make_equal_batch_and_line
+    second_line = make_line
+    await service.allocate(
+        line=line,
+        batches=[
+            batch,
+        ],
+    )
+    with pytest.raises(OutOfStockError):
+        await service.allocate(
+            line=second_line,
+            batches=[
+                batch,
+            ],
+        )
