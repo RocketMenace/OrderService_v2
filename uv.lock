@@ -600,7 +600,7 @@ wheels = [
 [[package]]
 name = "orderservice-v2"
 version = "0.1.0"
-source = { virtual = "." }
+source = { editable = "." }
 dependencies = [
     { name = "alembic" },
     { name = "asyncpg" },
