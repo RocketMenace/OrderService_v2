@@ -20,3 +20,16 @@ class Settings(BaseSettings):
     # Logging
     log_level: str = Field(default="INFO", alias="LOG_LEVEL")
     log_format: str = Field(default="json")
+
+    # Database configuration
+    postgres_db: str = Field(default="order_service", alias="POSTGRES_DB")
+    postgres_user: str = Field(default="postgres", alias="POSTGRES_USER")
+    postgres_password: str = Field(default="postgres", alias="POSTGRES_PASSWORD")
+    postgres_host: str = Field(default="postgres", alias="POSTGRES_HOST")
+    postgres_port: int = Field(default=5432, alias="POSTGRES_PORT")
+
+    # Database connection pool settings
+    db_pool_size: int = Field(default=5, alias="DB_POOL_SIZE")
+    db_max_overflow: int = Field(default=10, alias="DB_MAX_OVERFLOW")
+    db_pool_timeout: int = Field(default=30, alias="DB_POOL_TIMEOUT")
+    db_url: str = Field(default="", alias="DATABASE_URL")
