@@ -1,7 +1,8 @@
 from sqlalchemy import ForeignKey, Integer, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from app.infrastructure.persistence_sqla.models import BaseModel, OrderModel
+from app.infrastructure.persistence_sqla.models.base import BaseModel
+from app.infrastructure.persistence_sqla.models.order import OrderModel
 
 
 class OrderLineModel(BaseModel):
