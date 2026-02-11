@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 from uuid import UUID, uuid4
 
 
-@dataclass(frozen=True, repr=False, slots=False)
+@dataclass(frozen=True, repr=False, slots=True)
 class BatchID:
     value: str = field(default_factory=lambda: str(uuid4()))
 

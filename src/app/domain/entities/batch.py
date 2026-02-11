@@ -51,7 +51,7 @@ class Batch:
     async def can_allocate(self, *, line: OrderLine) -> bool:
         return self.sku == line.sku and await self.available_quantity >= line.qty
 
-    def __eq__(self, other):
+    def __eq__(self, other: object):
         if not isinstance(other, Batch):
             return False
         return other.reference == self.reference
