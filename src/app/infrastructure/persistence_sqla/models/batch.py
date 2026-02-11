@@ -8,7 +8,7 @@ from app.infrastructure.persistence_sqla.models.base import BaseModel
 
 class BatchModel(BaseModel):
     __tablename__ = "batches"
-    __table_args__ = [CheckConstraint("qty > 0", name="positive_qty")]
+    __table_args__ = (CheckConstraint("qty > 0", name="positive_qty"),)
 
     reference: Mapped[str] = mapped_column(String(255))
     sku: Mapped[str] = mapped_column(String(255))

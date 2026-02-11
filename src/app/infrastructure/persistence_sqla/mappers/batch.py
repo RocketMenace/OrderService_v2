@@ -12,14 +12,14 @@ class BatchDatabaseMapper:
         return BatchModel(
             reference=entity.reference,
             sku=entity.sku,
-            qty=entity.available_quantity,
+            qty=await entity.available_quantity,
             eta=entity.eta,
         )
 
     @staticmethod
     async def to_entity(*, model: BatchModel) -> Batch:
         return Batch(
-            reference=BatchID(model.reference),
+            reference=BatchID(value=str(model.reference)),
             sku=model.sku,
             qty=model.qty,
             eta=model.eta,
