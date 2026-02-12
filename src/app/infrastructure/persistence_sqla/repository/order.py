@@ -1,5 +1,6 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.domain.entities.batch import Batch
 from app.infrastructure.persistence_sqla.models import OrderModel
 from app.infrastructure.persistence_sqla.repository import BaseRepository
 

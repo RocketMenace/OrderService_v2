@@ -2,6 +2,7 @@ from dataclasses import dataclass
 
 from app.domain.entities.batch import Batch
 from app.domain.value_objects import BatchID
+from app.infrastructure.persistence_sqla.mappers.contracts import BatchContract
 from app.infrastructure.persistence_sqla.models import BatchModel
 
 
@@ -23,4 +24,13 @@ class BatchDatabaseMapper:
             sku=model.sku,
             qty=model.qty,
             eta=model.eta,
+        )
+
+    @staticmethod
+    async def entity_to_dict(*, entity: Batch) -> BatchContract:
+        return BatchContract(
+            reference=entity.reference,
+            sku=entity.sku,
+            qty=await entity.available_quantity,
+            eta=entity.eta,
         )
