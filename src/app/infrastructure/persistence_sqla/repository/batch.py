@@ -1,4 +1,6 @@
-from sqlalchemy import insert
+from typing import Sequence
+
+from sqlalchemy import insert, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.domain.entities.batch import Batch
@@ -17,3 +19,8 @@ class BatchRepository(BaseRepository[BatchModel]):
         query = insert(self._model).values(**data).returning(self._model)
         result = (await self._session.execute(query)).scalar_one()
         return await self.mapper.to_entity(model=result)
+
+    async def get_all(self) -> Sequence[BatchModel]:
+        query = select(self._model)
+        result = await self._session.execute(query)
+        return result.scalars().all()
