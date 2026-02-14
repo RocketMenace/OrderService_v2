@@ -1,13 +1,20 @@
 from datetime import datetime
+from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, Field
 
 
 class OrderBaseSchema(BaseModel):
+    order_id: UUID = Field(
+        ...,
+        description="Order UUID",
+        examples=[
+            "fd57c632-327c-47fe-91f2-6df7db1c5d8e",
+        ],
+    )
     sku: str = Field(
         ...,
         description="Stock keeping unit",
-        frozen=True,
         examples=[
             "EXPENSIVE-TOASTER",
         ],
@@ -20,7 +27,7 @@ class OrderBaseSchema(BaseModel):
             1,
         ],
     )
-    model_config = ConfigDict(from_attributes=True, validate_by_name=True)
+    model_config = ConfigDict(from_attributes=True, validate_by_name=True, frozen=True)
 
 
 class OrderRequestSchema(OrderBaseSchema):
