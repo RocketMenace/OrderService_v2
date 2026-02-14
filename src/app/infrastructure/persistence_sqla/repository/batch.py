@@ -20,7 +20,7 @@ class BatchRepository(BaseRepository[BatchModel]):
         result = (await self._session.execute(query)).scalar_one()
         return await self.mapper.to_entity(model=result)
 
-    async def get_all(self) -> Sequence[BatchModel]:
+    async def get_all(self) -> list[Batch]:
         query = select(self._model)
-        result = await self._session.execute(query)
-        return result.scalars().all()
+        result = (await self._session.execute(query)).scalars().all()
+        return [await self.mapper.to_entity(model=model) for model in result]

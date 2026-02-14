@@ -1,6 +1,6 @@
 from typing import Generic, TypeVar
 
-from sqlalchemy import insert
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.infrastructure.persistence_sqla.models import BaseModel
